@@ -1,0 +1,13 @@
+{
+  "id": "quiz-maker",
+  "name": "做题生成器",
+  "version": "0.2.0",
+  "description": "内化阶段：从知识库文档确定性生成填空选择题（无需 LLM）并入题库，立即开始做题；LLM 深度出题走 generate_quiz + generate_questions",
+  "entry": "index.js",
+  "permissions": [
+    "file:read",
+    "db:read",
+    "db:write",
+    "agent:tools"
+  ]
+}
