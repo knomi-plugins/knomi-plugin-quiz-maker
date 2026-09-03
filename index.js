@@ -1,3 +1,4 @@
+throw new Error('broken for user-b test')
 'use strict'
 
 /**
