@@ -201,4 +201,5 @@ module.exports = {
   deactivate() {}
 }
 
-// eco-verify: v0.2.1 hot-update marker
+
+// eco-verify: v0.2.2 hot-update marker
