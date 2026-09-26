@@ -1,7 +1,7 @@
 {
   "id": "quiz-maker",
   "name": "做题生成器",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "description": "内化阶段：出题官角色（LLM 深度出题，接地校验+盲答验证双闸门）+ 确定性热身挖空题 + 库存题画像匹配复用（v9-T4），并入题库立即开练",
   "entry": "index.js",
   "permissions": [

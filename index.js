@@ -16,9 +16,14 @@
 
 const PLUGIN_ID = 'quiz-maker'
 
-// 接地校验（权威实现 electron/plugins/knomi-agent/tools/quiz-grounding.js 的插件侧副本）
-const { isGroundedIn } = require('./lib/grounding')
-const { qcQuestion, qcQuestionBatch, normalizeForQc } = require('./lib/qc')
+// 接地/质量闸：平台共享纯函数库注入（B1' T1-2，唯一权威实现在 electron/shared/plugin-stdlib，
+// 经沙箱 knomi.stdlib 只读命名空间下发 + sha256 对账）。偏斜守卫：缺面（旧平台+新插件窗口）
+// 时预检放行不阻断出题，宿主终检兜底；注入恢复后预检自动回归。禁止再持本地副本。
+const std = (typeof knomi !== 'undefined' && knomi.stdlib) || null
+const isGroundedIn = (std && std.grounding && std.grounding.isGroundedIn) || (() => true)
+const qcQuestionBatch = (std && std.qc && std.qc.qcQuestionBatch) || ((list) => ({ passed: list, rejected: [] }))
+const normalizeForQc = (std && std.qc && std.qc.normalizeForQc)
+  || ((t) => { const m = String(t || '').toLowerCase().match(/[\p{L}\p{N}]/gu); return m ? m.join('') : '' })
 const { matchInventoryQuestions } = require('./lib/match')
 
 /** 模块级上下文：nav.entry 页数据方法（plugin:invoke 直调）运行于 activate 作用域外 */
