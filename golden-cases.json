@@ -1,0 +1,18 @@
+[
+  {
+    "tool": "generate_cloze_quiz",
+    "args": { "count": 3 },
+    "expect": {
+      "outputContains": "已生成",
+      "note": "热身挖空：确定性生成，入库后返回 start_practice 意图；拒收如实汇报"
+    }
+  },
+  {
+    "tool": "generate_quiz",
+    "args": { "topic": "任意主题", "count": 5 },
+    "expect": {
+      "outputContains": "出题官",
+      "note": "深度出题：返回分节材料+知识点锚点+出题任务书，指引委派出题官（launch_subagent type=preset, preset=出题官），最终经 generate_questions 落库（generator=出题官）"
+    }
+  }
+]
